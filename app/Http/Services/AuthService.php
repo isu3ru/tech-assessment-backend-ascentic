@@ -34,4 +34,12 @@ class AuthService
     {
         return $this->userRepository->create($data);
     }
+
+    /**
+     * Sign out a user
+     */
+    function signOut(User $user): void
+    {
+        $user->currentAccessToken()->delete();
+    }
 }

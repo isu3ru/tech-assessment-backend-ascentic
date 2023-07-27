@@ -42,4 +42,14 @@ class AuthController extends Controller
 
         return response()->json(['user' => $user], 201);
     }
+
+    /**
+     * Process user sign out request
+     */
+    function signOut(Request $request): JsonResponse
+    {
+        $this->authService->signOut($request->user());
+
+        return response()->json(['message' => 'User signed out successfully']);
+    }
 }

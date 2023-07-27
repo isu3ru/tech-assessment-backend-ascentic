@@ -92,4 +92,28 @@ class AuthTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['email']);
     }
+
+    /**
+     * Test user sign-out.
+     */
+    public function testSignOut(): void
+    {
+        $user = $this->createUser();
+
+        // sign in the user
+        $token = $this->postJson('/api/signin', [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->json('token');
+
+        // sign out
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/signout');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'User signed out successfully'
+            ]);
+    }
 }
