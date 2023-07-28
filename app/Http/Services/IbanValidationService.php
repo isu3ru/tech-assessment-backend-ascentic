@@ -2,7 +2,10 @@
 
 namespace App\Http\Services;
 
+use App\Models\IbanValidation;
 use App\Repositories\IbanValidationRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class IbanValidationService
 {
@@ -10,18 +13,23 @@ class IbanValidationService
     {
     }
 
-    public function all()
+    public function all(): Collection
     {
         return $this->ibanValidationRepository->all();
     }
 
-    public function store($data)
+    public function list(): LengthAwarePaginator
+    {
+        return $this->ibanValidationRepository->list();
+    }
+
+    public function store($data): IbanValidation
     {
         $data['user_id'] = request()->user()->id;
         return $this->ibanValidationRepository->store($data);
     }
 
-    public function byUser(int $userId)
+    public function byUser(int $userId): Collection
     {
         return $this->ibanValidationRepository->byUser($userId);
     }
