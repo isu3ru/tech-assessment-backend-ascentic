@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\IbanValidation;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class IbanValidationRepository
 {
@@ -22,6 +23,15 @@ class IbanValidationRepository
     {
         return IbanValidation::orderBy('created_at', 'desc')
             ->get();
+    }
+
+    /**
+     * List all validated records paginated
+     */
+    public function list(): LengthAwarePaginator
+    {
+        return IbanValidation::orderBy('created_at', 'desc')
+            ->paginate(10);
     }
 
     /**
