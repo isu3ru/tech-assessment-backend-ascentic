@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIbanValidationRequest;
+use App\Http\Resources\IbanValidationCollection;
 use App\Http\Services\IbanValidationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,10 +26,10 @@ class IbanValidationController extends Controller
         ], 201);
     }
 
-    public function all(): JsonResponse
+    public function all(): IbanValidationCollection
     {
         $paginatedList = $this->ibanValidationService->list();
 
-        return response()->json($paginatedList, 200);
+        return new IbanValidationCollection($paginatedList);
     }
 }
