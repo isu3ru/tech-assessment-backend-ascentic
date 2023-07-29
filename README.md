@@ -45,6 +45,8 @@ Isuru Ranawaka
     DB_PASSWORD=<YOUR_DATABASE_PASSWORD>
    ```
 
+   Create database using `php artisan migrate --seed`. This will create the database and seed the initial admin user account.
+
 5. Run
 
     `php artisan serve`
